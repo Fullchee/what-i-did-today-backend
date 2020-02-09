@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const { pool } = require("./config");
 
 // const helmet = require("helmet");
 // const compression = require("compression");
@@ -12,7 +13,6 @@ const cors = require("cors");
 // const { body, check } = require("express-validator");
 
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
 
 const app = express();
 
@@ -29,8 +29,37 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
+const addWorkItem = (request, response) => {
+  console.log(request.body);
+  const { url, title, description, status } = request.body;
+  console.log(url);
+  pool.query(
+    "INSERT INTO work_items (url, title, description, status) VALUES ($1, $2, $3, $4)",
+    [url, title, description, status],
+    error => {
+      if (error) {
+        throw error;
+      }
+      response.status(201).json({
+        status: "success",
+        body: request.body,
+        message: "Work item added."
+      });
+    }
+  );
+};
+
+app.route("/workitem").post(addWorkItem);
+
+const workItems = (request, response) => {
+  pool.query("SELECT * FROM work_items", (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+app.route("/workitems").get(workItems);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

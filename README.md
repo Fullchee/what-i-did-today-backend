@@ -1,3 +1,12 @@
+# Immediate TODOs
+
+- add something to the database from a front end app
+  - setup the add path
+  - connect to the db
+  - front end
+  - try it on heroku
+- password login
+
 # Why
 
 - be a better software developer
@@ -38,18 +47,37 @@
 - id: `status` on `date`
   - title if's a semantically meaningless UUID)
 
-## Database Tables
+# Setup
 
-See schema.sql
+## Database
+
+1.  Install postgres
+    1. sudo apt-get install postgresql
+2.  `psql postgres`
+3.  Create a new role
+
+        CREATE ROLE api_user WITH LOGIN PASSWORD 'password';
+        ALTER ROLE api_user CREATEDB;
+
+4. Exit `\q`
+5. Create a file called `.env` in the repo directory.
+
+**Reference that I used for setting up my PSQL**
+
+https://www.taniarascia.com/node-express-postgresql-heroku/#set-up-postgresql-database
+
+```sql
+DB_USER=api_user
+DB_PASSWORD=password
+DB_HOST=localhost
+DB_PORT=5432
+DB_DATABASE=whatidid
+```
 
 Possible new tables
 
 - BuildBreaks
 - VerifyFailed
-
-## Other essential features
-
-- password login
 
 ### Nice to have
 
