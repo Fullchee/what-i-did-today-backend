@@ -1,11 +1,9 @@
 -- must be run in the psql shell
-CREATE ROLE what_i_did_user WITH LOGIN PASSWORD 'password';
+-- CREATE ROLE what_i_did_user WITH LOGIN PASSWORD 'password';
+-- ALTER ROLE api_user CREATEDB;
+-- CREATE DATABASE whatidid;
+-- \c whatidid;
 
-ALTER ROLE api_user CREATEDB;
-
-CREATE DATABASE whatidid;
-
-\c whatidid;
 CREATE TYPE work_status AS ENUM (
   'not started',
   'working',
