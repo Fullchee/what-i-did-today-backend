@@ -59,8 +59,8 @@
         CREATE ROLE api_user WITH LOGIN PASSWORD 'password';
         ALTER ROLE api_user CREATEDB;
 
-4. Exit `\q`
-5. Create a file called `.env` in the repo directory.
+4.  Exit `\q`
+5.  Create a file called `.env` in the repo directory.
 
 **Reference that I used for setting up my PSQL**
 

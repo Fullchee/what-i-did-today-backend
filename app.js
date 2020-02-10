@@ -31,6 +31,13 @@ app.use(cors());
 
 const addWorkItem = (request, response) => {
   const { url, title, description, status } = request.body;
+  if (!url) {
+    response.status(400).json({
+      status: "fail",
+      message: "url given was null."
+    });
+    return;
+  }
   pool.query(
     "INSERT INTO work_items (url, title, description, status) VALUES ($1, $2, $3, $4)",
     [url, title, description, status],
