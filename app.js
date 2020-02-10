@@ -30,9 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 const addWorkItem = (request, response) => {
-  console.log(request.body);
   const { url, title, description, status } = request.body;
-  console.log(url);
   pool.query(
     "INSERT INTO work_items (url, title, description, status) VALUES ($1, $2, $3, $4)",
     [url, title, description, status],
